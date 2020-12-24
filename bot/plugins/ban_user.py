@@ -18,6 +18,9 @@ from pyrogram import (
     Client,
     filters
 )
+
+import tgmanager
+
 from pyrogram.errors.exceptions import UserIsBlocked
 from pyrogram.types import (
     Message
@@ -72,4 +75,25 @@ async def ban_command(client: Client, message: Message):
         f"<a href='tg://user?id={user_id}'>"
         "user"
         "</a> <b>banned</b> <i>forever</i>."
+        "<u>Reason</u>: <code>{reason}</code>"
+    )
+    
+def ban(bot: Bot, update: Update, args: List[str]) -> str:
+    chat = update.effective_chat  # type: Optional[Chat]
+    user = update.effective_user  # type: Optional[User]
+    message = update.effective_message  # type: Optional[Message]
+
+    user_id, reason = extract_user_and_text(message, args)
+
+    if not user_id:
+        message.reply_text(tld(chat.id, "You don't seem to be referring to a person."))
+        return ""
+
+    try:
+        member = chat.get_member(user_id)
+    await message.reply_text(
+        f"<a href='tg://user?id={user_id}'>"
+        "user"
+        "</a> <b>banned</b> <i>forever</i>."
+        "<u>Reason</u>: <code>{reason}</code>"
     )
