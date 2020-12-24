@@ -31,7 +31,7 @@ from . import (
 class BlackList(BASE):
     """ table to store BANned users """
     __tablename__ = "blacklist"
-    chat_id = Column(String(14), primary_key=True)
+    user_id = Column(String(14), primary_key=True)
     reason = Column(UnicodeText)
 
     def __init__(self, chat_id, reason):
@@ -47,6 +47,14 @@ BlackList.__table__.create(checkfirst=True)
 
 def add_user_to_bl(chat_id: int, reason: str):
     """ add the user to the blacklist """
+    __user = BlackList(str(chat_id), reason)
+    SESSION.add(__user)
+    SESSION.commit()
+    
+    
+def add_user_to_bl2(chat_id: int, reason: str, AUTH2):
+    """ add the user to the blacklist """
+    AUTH2 = get.user_id
     __user = BlackList(str(chat_id), reason)
     SESSION.add(__user)
     SESSION.commit()
