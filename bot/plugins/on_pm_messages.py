@@ -63,7 +63,13 @@ async def on_pm_s(_, message: Message):
             )
         )
         return
-      
+
+      user_id = message.from_user.id
+    try:
+        await _.get_chat_member(chat_id="roleplayconfes", user_id=user_id)
+    except:
+        return await message.reply("🙅🏻‍♀️ post tidak terkirim \n <b>untuk menggunakan bot ini kamu harus sub dulu</b>.\n jika sudah sub silahkan gunakan kembali", parse_mode="html")
+
     waktu_sekarang = pendulum.now("Asia/Jakarta")
 
     if waktu_sekarang.hour > 23 or waktu_sekarang.hour < 23:
