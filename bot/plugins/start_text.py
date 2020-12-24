@@ -39,7 +39,8 @@ from bot.hf.flifi import uszkhvis_chats_ahndler
 async def num_start_message(_, message: Message):
     await message.reply_text(
         START_OTHER_USERS_TEXT,
-        quote=True
+        quote=True,
+        disable_web_page_preview=True
     )
 
 
@@ -50,5 +51,6 @@ async def num_start_message(_, message: Message):
 async def nimda_start_message(_, message: Message):
     await message.reply_text(
         ONLINE_CHECK_START_TEXT,
-        quote=True
+        quote=True,
+        disable_web_page_preview=True
     )
